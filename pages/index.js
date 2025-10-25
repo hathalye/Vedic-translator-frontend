@@ -7,6 +7,7 @@ export default function Home() {
   const [file, setFile] = useState(null);
   const [outputText, setOutputText] = useState('');
   const [mode, setMode] = useState('gist');
+  const [targetLang, setTargetLang] = useState('en'); // Added for target language
   const [warning, setWarning] = useState('');
 
   const BACKEND_URL = 'https://vedic-translator-backend.onrender.com';
@@ -18,9 +19,9 @@ export default function Home() {
       const res = await axios.post(`${BACKEND_URL}/translate`, {
         text: inputText,
         mode,
-        target_lang: 'en',
+        target_lang: targetLang,
       });
-      setOutputText(res.data.translated_text);;
+      setOutputText(res.data.translated_text); // Updated to match backend
     } catch (err) {
       console.error(err);
       alert('Error translating text.');
@@ -40,7 +41,7 @@ export default function Home() {
       const res = await axios.post(`${BACKEND_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setInputText(res.data.extracted_text);;
+      setInputText(res.data.extracted_text); // Updated to match backend
       if (res.data.warning) setWarning(res.data.warning);
     } catch (err) {
       console.error(err);
@@ -77,6 +78,15 @@ export default function Home() {
           <option value="transliterate">Transliterate</option>
           <option value="literal">Literal</option>
           <option value="gist">Gist</option>
+        </select>
+      </div>
+
+      <div style={{ marginBottom: 10 }}>
+        <label>Target Language: </label>
+        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)}>
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="sa">Sanskrit</option>
         </select>
       </div>
 
