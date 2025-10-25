@@ -40,7 +40,7 @@ export default function Home() {
       const res = await axios.post(`${BACKEND_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setInputText(res.data.text);
+      setInputText(res.data.extracted_text);;
       if (res.data.warning) setWarning(res.data.warning);
     } catch (err) {
       console.error(err);
