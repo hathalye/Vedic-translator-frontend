@@ -20,7 +20,7 @@ export default function Home() {
         mode,
         target_lang: 'en',
       });
-      setOutputText(res.data.output);
+      setOutputText(res.data.translated_text);;
     } catch (err) {
       console.error(err);
       alert('Error translating text.');
